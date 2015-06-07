@@ -1,6 +1,7 @@
 
 import scala.collection.mutable
 import scala.io.Source
+import scala.math.BigDecimal
 
 object Filestats{
 
@@ -47,7 +48,7 @@ object Filestats{
 			}
 		}
 		// Move to immutable storage
-		val fixedWordCount = wordcount
+		val fixedWordCount = wordcount.toDouble
 
 		// Set two variables to hold the number of letters per word and running total of word length.
 		var tempLetterCount=0
@@ -73,7 +74,7 @@ object Filestats{
 
 		// Move mutable variables to immutable for safety.
 		// Finish calculating the average word length so it is immutable.
-		val fixedAvgWord=avgword/fixedWordCount
+		val fixedAvgWord= BigDecimal(avgword/fixedWordCount).setScale(1, BigDecimal.RoundingMode.HALF_UP).toDouble 
     		// Carry out the line count and save the result to immutable storage.
 		// The iterator will be empty having read through the file once so must be reinitialised.
 		val logData2 = Source.fromFile(filename)
