@@ -52,13 +52,19 @@ object Filestats{
 		// Set two variables to hold the number of letters per word and running total of word length.
 		var tempLetterCount=0
 		var avgword=0
+		// Use the words map to calculate the average word length.
 		for((key, value) <- words){
-			for(wordlengths <- key.split("")){
-				if (isOrdinary(wordlengths)) {
+			for(letters <- key.split("")){
+				// Call the function to ignore punctuation
+				if (isOrdinary(letters)) {
+					// Count how many letters in the word
 					tempLetterCount +=1
-					letterCounts(wordlengths) += value
+					// Update the map for letter frequency
+					letterCounts(letters) += value
 				}
+				// Add the letters in the last word to the count
 				avgword += tempLetterCount*value
+				// Zero the letter count per word for next iteration.
 				tempLetterCount = 0
 			}
 		}
